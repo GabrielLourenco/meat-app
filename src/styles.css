@@ -3,6 +3,12 @@
 body {
   color: #555;
 }
+div.loading {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url('assets/img/loading.gif') #fa743f no-repeat center;
+}
 
 .box-header {
   color: inherit;
