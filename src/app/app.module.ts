@@ -19,6 +19,7 @@ import { ShoppingCartComponent } from './restaurants/restaurant/restaurant-detai
 import { MenuItemComponent } from './restaurants/restaurant/restaurant-detail/menu/menu-item/menu-item.component';
 import { ReviewsComponent } from './restaurants/restaurant/restaurant-detail/reviews/reviews.component'
 import { OrderSumaryComponent } from './order-sumary/order-sumary.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { OrderSumaryComponent } from './order-sumary/order-sumary.component';
     ShoppingCartComponent,
     MenuItemComponent,
     ReviewsComponent,
-    OrderSumaryComponent
+    OrderSumaryComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
