@@ -1,10 +1,12 @@
-export class Restaurant {
-    constructor(
+export interface Restaurant {
+    // constructor(
         id: string,
         name: string,
         category: string,
         deliveryEstimate: string,
         rating: number,
-        imagePath: string
-    ){ }
+        imagePath: string,
+        hours: string,
+        about:string
+    // ){ }
 }

@@ -13,4 +13,8 @@ export class OrderSumaryComponent implements OnInit {
   ngOnInit() {
   }
 
+  toRated(){
+    this.rated = true
+  }
+
 }
