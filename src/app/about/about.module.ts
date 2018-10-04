@@ -11,4 +11,4 @@ const ROUTES: Routes = [
     declarations: [AboutComponent],
     imports: [ RouterModule, RouterModule.forChild(ROUTES)]
 })
-export class AboutModule {} /* Remover AboutModule do AppModule */
+export class AboutModule {}
