@@ -7,11 +7,10 @@ import { ShoppingCartService } from "./shopping-cart.service";
 import { CartItem } from "../models/cart-item.model";
 import { MEAT_API } from "../app.api";
 import { Order } from "../models/order.model";
-import { LoginService } from "./login.service";
 
 @Injectable()
 export class OrderService {
-    constructor(private cartService: ShoppingCartService, private http: HttpClient, private loginService: LoginService) {}
+    constructor(private cartService: ShoppingCartService, private http: HttpClient) {}
 
     public itemsValue(): number {
         return this.cartService.total()
@@ -38,11 +37,7 @@ export class OrderService {
     }
 
     public checkOrder(order: Order): Observable<Order> {
-        let headers = new HttpHeaders();
-        if (this.loginService.isLoggedIn()){
-            headers = headers.set('Authorization', `Bearer ${this.loginService.user.accessToken}`)
-        }
-        return this.http.post<Order>(`${MEAT_API}/orders`, order, {headers: headers})
+        return this.http.post<Order>(`${MEAT_API}/orders`, order)
             // .map(response => response.json())
     }
 
