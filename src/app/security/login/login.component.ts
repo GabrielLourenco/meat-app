@@ -25,14 +25,14 @@ export class LoginComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.navigateTo = this.activatedRoute.snapshot.params['to'] || '/';
+    this.navigateTo = this.activatedRoute.snapshot.params['to'] || btoa('/');
   }
 
   public login(): void {
     this.loginService.login(this.loginForm.value.email, this.loginForm.value.password)
       .subscribe( user => this.notificationService.notify(`Bem vindo, ${user.name}`),
                   response => this.notificationService.notify(response.error.message),
-                  () => this.router.navigate([this.navigateTo]))
+                  () => this.router.navigate([ atob(this.navigateTo) ]))
   }
 
 }
