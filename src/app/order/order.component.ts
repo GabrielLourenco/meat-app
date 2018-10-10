@@ -3,7 +3,7 @@ import { RadioOption } from '../shared/radio/radio-option.model';
 import { OrderService } from '../services/order.service';
 import { CartItem } from '../models/cart-item.model';
 import { Order } from '../models/order.model';
-// import { map } from 'rxjs/operator/map';
+import 'rxjs/add/operator/do';
 import { OrderItem } from '../models/order-item.model';
 import { Router } from '@angular/router';
 import { FormGroup, Validators, AbstractControl, FormBuilder } from '@angular/forms';
@@ -20,6 +20,8 @@ export class OrderComponent implements OnInit {
   public orderForm: FormGroup
 
   public delivery: number = 8;
+
+  public orderId: string;
 
   public paymentOptions: RadioOption[] = [
     new RadioOption('Dinheiro', 'MON'),
@@ -82,10 +84,18 @@ export class OrderComponent implements OnInit {
   public checkOrder(order: Order): void {
     order.orderItems = this.cartItems()
       .map((item: CartItem) => new OrderItem(item.quantity, item.menuItem.id))
-      this.orderService.checkOrder(order).subscribe((orderId: Order) => {
-        this.router.navigate(['/order-summary'])
-        this.orderService.clear()
-      })
+      this.orderService.checkOrder(order)
+        .do((order) => {
+          this.orderId = order.id
+        })
+        .subscribe((orderId: Order) => {
+          this.router.navigate(['/order-summary'])
+          this.orderService.clear()
+        })
+  }
+
+  public isOrderCompleted(): boolean {
+    return this.orderId !== undefined
   }
 
 }
