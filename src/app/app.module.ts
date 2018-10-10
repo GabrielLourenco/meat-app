@@ -7,7 +7,6 @@ import { registerLocaleData } from '@angular/common';
 import localept from '@angular/common/locales/pt';
 import localePtExtra from '@angular/common/locales/extra/pt';
 registerLocaleData(localept, localePtExtra);
- 
 
 import { ROUTES } from './app.routes';
 
@@ -26,6 +25,7 @@ import { ReviewsComponent } from './restaurants/restaurant/restaurant-detail/rev
 import { OrderSumaryComponent } from './order-sumary/order-sumary.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LoginComponent } from './security/login/login.component';
+import { UserDetailComponent } from './header/user-detail/user-detail.component';
 
 
 @NgModule({
@@ -42,7 +42,8 @@ import { LoginComponent } from './security/login/login.component';
     ReviewsComponent,
     OrderSumaryComponent,
     NotFoundComponent,
-    LoginComponent
+    LoginComponent,
+    UserDetailComponent
   ],
   imports: [
     BrowserModule,

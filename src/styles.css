@@ -281,3 +281,28 @@ div.loading {
   opacity: 0;
   max-height: 0px;
 }
+
+.box-footer .btn-danger {
+  margin-right: 5px;
+}
+
+.user-menu>span{ /**/
+  position: relative;
+  display: block;
+  padding: 15px 15px;
+  color: #fff;
+}
+
+.user-menu a{
+  color: #fff;
+  cursor: pointer
+}
+
+@media (max-width: 991px){
+  .navbar-custom-menu {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 40px;
+    }
+}
