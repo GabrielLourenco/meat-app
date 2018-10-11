@@ -9,7 +9,6 @@ import { Restaurant } from "../models/restaurant.model";
 import { MenuItem } from "../models/menu-item.model";
 
 import { MEAT_API } from "../app.api";
-import { ErrorHandler } from "../library/app.error-handler"
 
 @Injectable()
 export class RestaurantsService {
