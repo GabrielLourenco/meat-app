@@ -6,7 +6,7 @@ import { Order } from '../models/order.model';
 import 'rxjs/add/operator/do';
 import { OrderItem } from '../models/order-item.model';
 import { Router } from '@angular/router';
-import { FormGroup, Validators, AbstractControl, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'mt-order',
@@ -32,20 +32,21 @@ export class OrderComponent implements OnInit {
   constructor(
     private orderService: OrderService,
     private router: Router,
-    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
-    //form com validador de emails iguais
-    this.orderForm = this.formBuilder.group({
-      name: this.formBuilder.control('', [Validators.required, Validators.minLength(5)]),
-      email: this.formBuilder.control('', [Validators.required, Validators.pattern(this.emailPattern)]),
-      emailConfirmation: this.formBuilder.control('', [Validators.required, Validators.pattern(this.emailPattern)]),
-      address: this.formBuilder.control('', [Validators.required, Validators.minLength(5)]),
-      number: this.formBuilder.control('', [Validators.required, Validators.pattern(this.numberPattern)]),
-      optionalAddress: this.formBuilder.control(''),
-      paymentOption: this.formBuilder.control('', [Validators.required]),
-    }, {validator: OrderComponent.equalsEmail})
+    // form com validador de emails iguais
+    this.orderForm = new FormGroup({
+      name: new FormControl('', {
+        validators: [Validators.required, Validators.minLength(5)]
+      }),
+      email: new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),
+      emailConfirmation: new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),
+      address: new FormControl('', [Validators.required, Validators.minLength(5)]),
+      number: new FormControl('', [Validators.required, Validators.pattern(this.numberPattern)]),
+      optionalAddress: new FormControl(''),
+      paymentOption: new FormControl('', [Validators.required]),
+    }, {validators: [OrderComponent.equalsEmail], updateOn: 'blur'})
   }
 
   public static equalsEmail(group: AbstractControl): {[key:string]: boolean} {
