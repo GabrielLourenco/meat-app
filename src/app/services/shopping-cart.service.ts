@@ -1,15 +1,15 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
-import { NotificationService } from "./notification.service";
+import { NotificationService } from './notification.service';
 
-import { MenuItem } from "../models/menu-item.model";
-import { CartItem } from "../models/cart-item.model";
+import { MenuItem } from '../models/menu-item.model';
+import { CartItem } from '../models/cart-item.model';
 
 @Injectable()
 export class ShoppingCartService {
     items: any[] = [];
 
-    constructor(private notificationService: NotificationService){}
+    constructor(private notificationService: NotificationService) {}
 
     public clear(): void {
         this.items = []
@@ -42,6 +42,6 @@ export class ShoppingCartService {
     }
 
     public total(): number {
-        return this.items.map(item => item.value()).reduce((prev,value) => prev + value, 0);
+        return this.items.map(item => item.value()).reduce((prev, value) => prev + value, 0);
     }
 }

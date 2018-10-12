@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
-import { RestaurantsService } from "../../../../services/restaurants.service";
+import { RestaurantsService } from '../../../../services/restaurants.service';
 
 @Component({
   selector: 'mt-reviews',

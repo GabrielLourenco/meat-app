@@ -1,14 +1,12 @@
-import { Injectable } from "@angular/core";
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
-import { Observable } from "rxjs/Observable"
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs'
 
-import { Restaurant } from "../models/restaurant.model";
-import { MenuItem } from "../models/menu-item.model";
+import { Restaurant } from '../models/restaurant.model';
+import { MenuItem } from '../models/menu-item.model';
 
-import { MEAT_API } from "../app.api";
+import { MEAT_API } from '../app.api';
 
 @Injectable()
 export class RestaurantsService {

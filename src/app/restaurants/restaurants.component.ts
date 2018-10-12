@@ -1,19 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { trigger, state, style, transition, animate } from '@angular/animations'
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { FormGroup, FormControl } from '@angular/forms';
 
 import { RestaurantsService } from '../services/restaurants.service';
 
 import { Restaurant } from '../models/restaurant.model';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/from';
-
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/catch';
-
+import { Observable, from } from 'rxjs';
+import { switchMap, tap, debounceTime, distinctUntilChanged, catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'mt-restaurants',
@@ -43,12 +37,13 @@ export class RestaurantsComponent implements OnInit {
     this.restaurantsService.returnRestaurantsList().subscribe(list => this.restaurants = list)
 
     this.searchForm.controls.searchControl.valueChanges
-      .debounceTime(1000)
-      .distinctUntilChanged()
-      .switchMap(searchTerm =>
-        this.restaurantsService.returnRestaurantsList(searchTerm)
-        .catch( error => Observable.from([])))
-      .subscribe(restaurants => this.restaurants = restaurants);
+      .pipe(
+        debounceTime(1000),
+        distinctUntilChanged(),
+        switchMap(searchTerm =>
+          this.restaurantsService.returnRestaurantsList(searchTerm)
+            .pipe(catchError( error => from([]))))
+      ).subscribe(restaurants => this.restaurants = restaurants);
   }
 
   public toggleSearchBar(): void {

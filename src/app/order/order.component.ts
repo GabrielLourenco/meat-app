@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { RadioOption } from '../shared/radio/radio-option.model';
-import { OrderService } from '../services/order.service';
-import { CartItem } from '../models/cart-item.model';
-import { Order } from '../models/order.model';
-import 'rxjs/add/operator/do';
-import { OrderItem } from '../models/order-item.model';
 import { Router } from '@angular/router';
 import { FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
+
+import { tap } from 'rxjs/operators';
+
+import { OrderService } from '../services/order.service';
+
+import { OrderItem } from '../models/order-item.model';
+import { CartItem } from '../models/cart-item.model';
+import { Order } from '../models/order.model';
+import { RadioOption } from '../shared/radio/radio-option.model';
 
 @Component({
   selector: 'mt-order',
@@ -85,14 +88,15 @@ export class OrderComponent implements OnInit {
   public checkOrder(order: Order): void {
     order.orderItems = this.cartItems()
       .map((item: CartItem) => new OrderItem(item.quantity, item.menuItem.id))
-      this.orderService.checkOrder(order)
-        .do((order) => {
-          this.orderId = order.id
+      this.orderService.checkOrder(order).pipe(
+        tap((ord) => {
+          this.orderId = ord.id
         })
-        .subscribe((orderId: Order) => {
-          this.router.navigate(['/order-summary'])
-          this.orderService.clear()
-        })
+      )
+      .subscribe((orderId: Order) => {
+        this.router.navigate(['/order-summary'])
+        this.orderService.clear()
+      })
   }
 
   public isOrderCompleted(): boolean {
